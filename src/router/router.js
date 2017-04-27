@@ -45,6 +45,7 @@ const service = r => require.ensure([], () => r(require('../page/service/service
 const questionDetail = r => require.ensure([], () => r(require('../page/service/children/questionDetail')), 'questionDetail')
 const find = r => require.ensure([], () => r(require('../page/find/find')), 'find')
 const download = r => require.ensure([], () => r(require('../page/download/download')), 'download')
+const fir =    r => require.ensure([], () => r(require('../mypage/fir')),   'fir')
 
 
 
@@ -58,6 +59,14 @@ export default [{
             path: '',
             redirect: '/home'
         },
+      {
+          path:'/mypage',
+          redirect:'/mypage/fir'
+      },
+      {
+          path:'/mypage/fir',
+          component:fir,
+      },
         //首页城市列表页
         {
             path: '/home',

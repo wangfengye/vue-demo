@@ -250,5 +250,9 @@ export default {
 	[BUY_CART](state, price) {
 		state.cartPrice = price;
 	},
+	//测试
+	show(state){
+		alert(state.greeting);
+	}
 
 }

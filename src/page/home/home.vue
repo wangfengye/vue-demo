@@ -1,11 +1,16 @@
 <template>
   	<div>
+              
         <head-top signin-up='home'>
-            <span slot='logo' class="head_logo"  @click="reload">ele.me</span>
+            <!--<span slot='logo' class="head_logo"  @click="reload">maple</span>-->
+               <router-link :to="'/mypage/'" slot="logo" class="head_logo">maple</router-link>
         </head-top>
+          
         <nav class="city_nav">
+             <hello  ></hello>
+      
             <div class="city_tip">
-                <span>当前定位城市：</span>
+                <span>当前定位城市</span>
                 <span>定位不准时，请在城市列表中选择</span>
             </div>
             <router-link :to="'/city/' + guessCityid" class="guess_city">
@@ -19,7 +24,7 @@
             <h4 class="city_title">热门城市</h4>
             <ul class="citylistul clear">
                 <router-link  tag="li" v-for="item in hotcity" :to="'/city/' + item.id" :key="item.id">
-                    {{item.name}}
+                     {{item.name}}
                 </router-link>  
             </ul>
         </section>
@@ -32,7 +37,6 @@
                     <ul class="groupcity_name_container citylistul clear">
                         <router-link  tag="li" v-for="item in value" :to="'/city/' + item.id" :key="item.id" class="ellipsis">
                             {{item.name}}
-
                         </router-link>  
                     </ul>
                 </li>
@@ -43,6 +47,7 @@
 
 <script>
 import headTop from '../../components/header/head'
+import hello from '../../components/test/hello'
 import {cityGuess, hotcity, groupcity} from '../../service/getData'
 
 export default {
@@ -74,7 +79,8 @@ export default {
     },
 
     components:{
-        headTop
+        headTop,
+        hello,
     },
 
     computed:{
@@ -94,8 +100,11 @@ export default {
         //点击图标刷新页面
         reload(){
             window.location.reload();
-        }
+        },
+        
+    
     },
+   
 }
 
 </script>

@@ -13,6 +13,8 @@ import * as addDetail from './tempdata/addDetail'
 import * as addresspart from './tempdata/address'
 import * as vip from './tempdata/vip'
 import * as hongbao from './tempdata/hongbao'
+import * as meizi from './tempdata/meizi'
+
 
 
 /**
@@ -43,6 +45,21 @@ if (process.env.NODE_ENV == 'development') {
 	var hotcity = () => fetch('GET', '/v1/cities', {
 		type: 'hot'
 	});
+
+	//var getmeizi = (count, page) => fetch('GET', 'http://gank.io/api/data/福利/' + count + '/' + page, {});
+	var getmeizi = (count, page) => {
+		return fetch('GET', 'http://gank.io/api/data/福利/5/1', {});
+	}
+	/*var meizi = function(){
+		fetch('http://gank.io/api/data/福利/9/1',{
+		method:'GET',,{}
+		headers:{'Access-Control-Allow-Origin': '*'},
+	}).then(function(response){
+		console.log(response.results);
+	})
+};*/
+
+
 
 
 	/**
@@ -227,7 +244,7 @@ if (process.env.NODE_ENV == 'development') {
 	 * 账号密码登录
 	 */
 
-	var accountLogin = (username, password, captcha_code) => fetch('POST', '/v2/login', {username, password, captcha_code});
+	var accountLogin = (username, password, captcha_code) => fetch('POST', '/v2/login', { username, password, captcha_code });
 
 
 	/**
@@ -353,17 +370,17 @@ if (process.env.NODE_ENV == 'development') {
 		validation_code,
 		validation_token
 	}) => fetch('POST', '/v1/users/' + user_id + '/carts/' + cart_id + '/orders', {
-		address_id,
-		come_from: "mobile_web",
-		deliver_time: "",
-		description,
-		entities,
-		geohash,
-		paymethod_id: 1,
-		sig,
-		validation_code,
-		validation_token,
-	});
+			address_id,
+			come_from: "mobile_web",
+			deliver_time: "",
+			description,
+			entities,
+			geohash,
+			paymethod_id: 1,
+			sig,
+			validation_code,
+			validation_token,
+		});
 
 
 	/**
@@ -392,7 +409,7 @@ if (process.env.NODE_ENV == 'development') {
 	*兑换会员卡
 	*/
 
-	var vipCart= (id, number, password) => fetch('POST','/member/v1/users/' + id + '/delivery_card/physical_card/bind',{
+	var vipCart = (id, number, password) => fetch('POST', '/member/v1/users/' + id + '/delivery_card/physical_card/bind', {
 		number,
 		password
 	})
@@ -403,7 +420,7 @@ if (process.env.NODE_ENV == 'development') {
 	 * 获取红包数量
 	*/
 
-	var getHongbaoNum= id => fetch('GET','/promotion/v2/users/' + id + '/hongbaos',{});
+	var getHongbaoNum = id => fetch('GET', '/promotion/v2/users/' + id + '/hongbaos', {});
 
 
 
@@ -412,14 +429,14 @@ if (process.env.NODE_ENV == 'development') {
 	*/
 
 
-	var getExpired= id => fetch('GET','/promotion/v2/users/' + id + '/expired_hongbaos?limit=10&offset=0',{});
+	var getExpired = id => fetch('GET', '/promotion/v2/users/' + id + '/expired_hongbaos?limit=10&offset=0', {});
 
 
 	/**
 	 * 兑换红包
 	*/
 
-	var exChangeHongbao= (id, exchange_code, captcha_code) => fetch('POST','/v1/users/' + id + '/hongbao/exchange',{
+	var exChangeHongbao = (id, exchange_code, captcha_code) => fetch('POST', '/v1/users/' + id + '/hongbao/exchange', {
 		exchange_code,
 		captcha_code,
 	});
@@ -464,24 +481,26 @@ if (process.env.NODE_ENV == 'development') {
 	*个人中心里编辑地址
 	*/
 
-	var getAddressList = (user_id) => fetch('GET', '/v1/users/'+user_id+'/addresses')
+	var getAddressList = (user_id) => fetch('GET', '/v1/users/' + user_id + '/addresses')
 
 	/**
 	*个人中心里搜索地址
 	*/
 
-	var getSearchAddress=(keyword) => fetch('GET','v1/pois',{
-		keyword:keyword,
-		type:'nearby'
+	var getSearchAddress = (keyword) => fetch('GET', 'v1/pois', {
+		keyword: keyword,
+		type: 'nearby'
 	})
 
 	/**
 	* 删除地址
 	*/
 
-	var deleteAddress=(userid, addressid) => fetch('OPTIONS','/v1/users/' + userid + '/addresses/' + addressid,{})
+	var deleteAddress = (userid, addressid) => fetch('OPTIONS', '/v1/users/' + userid + '/addresses/' + addressid, {})
 
-}else{
+} else {
+	var getmeizi = () => setpromise(meizi.meizi);
+
 	var cityGuess = () => setpromise(home.guesscity);
 	var hotcity = () => setpromise(home.hotcity);
 	var groupcity = () => setpromise(home.groupcity);
@@ -524,16 +543,16 @@ if (process.env.NODE_ENV == 'development') {
 	}) => setpromise(confirm.orderSuccess);
 	var payRequest = (merchantOrderNo, userId) => setpromise(confirm.payDetail);
 	getService = () => setpromise(service.serviceData);
-	var vipCart= (id, number, password) => setpromise(vip.vipcart);
-	var getHongbaoNum= id => setpromise(hongbao.dataList);
-	var getExpired= id => setpromise(hongbao.expired);
-	var exChangeHongbao= (id, exchange_code, captcha_code) => setpromise(hongbao.exchange);
+	var vipCart = (id, number, password) => setpromise(vip.vipcart);
+	var getHongbaoNum = id => setpromise(hongbao.dataList);
+	var getExpired = id => setpromise(hongbao.expired);
+	var exChangeHongbao = (id, exchange_code, captcha_code) => setpromise(hongbao.exchange);
 	var getUser = () => setpromise(login.userInfo);
 	var getOrderList = (user_id, offset) => setpromise(order.orderList);
 	var getOrderDetail = (user_id, orderid) => setpromise(order.orderDetail);
 	var getAddressList = (user_id) => setpromise(addresspart.address);
-	var getSearchAddress=(keyword) => setpromise(addDetail.addData);
-	var deleteAddress=(userid, addressid) =>  setpromise(vip.vipcart);
+	var getSearchAddress = (keyword) => setpromise(addDetail.addData);
+	var deleteAddress = (userid, addressid) => setpromise(vip.vipcart);
 }
 
 
@@ -543,4 +562,4 @@ if (process.env.NODE_ENV == 'development') {
 
 var sendLogin = (code, mobile, validate_token) => setpromise(login.userInfo);
 
-export {cityGuess, hotcity, groupcity, currentcity, searchplace, msiteAdress, msiteFoodTypes,shopList, searchRestaurant, foodCategory, foodDelivery, foodActivity, shopDetails, foodMenu, getRatingList, ratingScores, ratingTags, mobileCode, accountLogin, checkExsis, sendMobile, checkout, getRemark, getAddress, getcaptchas, searchNearby, postAddAddress, placeOrders, rePostVerify, validateOrders, payRequest, getService, vipCart, getHongbaoNum, getExpired, exChangeHongbao, getUser, sendLogin, getOrderList, getOrderDetail, getAddressList, getSearchAddress, deleteAddress}
+export { getmeizi, cityGuess, hotcity, groupcity, currentcity, searchplace, msiteAdress, msiteFoodTypes, shopList, searchRestaurant, foodCategory, foodDelivery, foodActivity, shopDetails, foodMenu, getRatingList, ratingScores, ratingTags, mobileCode, accountLogin, checkExsis, sendMobile, checkout, getRemark, getAddress, getcaptchas, searchNearby, postAddAddress, placeOrders, rePostVerify, validateOrders, payRequest, getService, vipCart, getHongbaoNum, getExpired, exChangeHongbao, getUser, sendLogin, getOrderList, getOrderDetail, getAddressList, getSearchAddress, deleteAddress }

@@ -20,14 +20,14 @@ export default async(type = 'GET', url = '', data = {}, method = 'fetch') => {
 
 	if (window.fetch && method == 'fetch') {
 		let requestConfig = {
-			credentials: 'include',
+		//	credentials: 'include',
 			method: type,
 			headers: {
-				'Accept': 'application/json',
+			//	'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			},
-			mode: "cors",
-			cache: "force-cache"
+			//mode: "no-cors",
+			//cache: "default"
 		}
 
 		if (type == 'POST') {

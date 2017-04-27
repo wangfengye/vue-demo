@@ -327,3 +327,12 @@ npm run build
 
 56 directories, 203 files
 ```
+
+***
+1. fetch 跨域 ，请求而的头部headers只要配置一个content-type为：application/x-www-form-urlencoded;charset=UTF-8,其他的都不用设置了(ps:后端允许跨域的情况下);
+
+2. router router.push() 参数:path +传入参数; 该方法会向history栈中添加记录 用于回退; router.go(1)前进;router.go(-1)后退;
+
+3. input标签,required属性表示必填项,不填显示不可提交
+
+4. js  A.concatt(B),连接A,B数组
