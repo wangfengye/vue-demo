@@ -1,7 +1,7 @@
 {
-  "name": "elm",
+  "name": "demo",
   "version": "1.0.1",
-  "description": "vue2-elm",
+  "description": "vue build demo",
   "author": "cangdu <1264889788@qq.com>",
   "private": true,
   "license": "Apache",
