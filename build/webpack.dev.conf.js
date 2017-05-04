@@ -30,7 +30,11 @@ module.exports = merge(baseWebpackConfig, {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'index.html',
+<<<<<<< HEAD
             favicon: 'bianfang.jpg',
+=======
+            favicon: '',
+>>>>>>> ab87b1303ca39e27bbe10422b8c78f82dc5197ee
             inject: true
         })
     ]
