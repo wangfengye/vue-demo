@@ -16,7 +16,10 @@ export default {
 
 <style lang="scss">
 @import './style/common';
+
+
 /*动画效果 页面跳转 透明三秒*/
+
 .router-fade-enter-active,
 .router-fade-leave-active {
 	transition: opacity .3s;
@@ -26,4 +29,8 @@ export default {
 .router-fade-leave-active {
 	opacity: 0;
 }
+
+
+
+
 </style>

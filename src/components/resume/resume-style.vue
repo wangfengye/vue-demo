@@ -1,7 +1,7 @@
 <template>
   <div class="styleEditor" ref="container">
     <div class="code" v-html="codeInStyleTag"></div>
-    <pre class="" v-html="highlightedCode"></pre>
+    <pre class="" v-html="highlightedCode"></pre><!--pre 元素可定义预格式化的文本-->
   </div>
 </template>
 
@@ -13,6 +13,7 @@
     computed: {
       highlightedCode: function () {
         return Prism.highlight(this.code, Prism.languages.css)
+        //return this.code
       },
       codeInStyleTag: function () {
         return `<style>${this.code}</style>`
