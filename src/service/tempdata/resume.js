@@ -66,7 +66,7 @@ html {
     top: .5em;
     -webkit-transition: none;/*過渡動畫*/
     transition: none;
-    -webkit-transform: rotateY(10deg) translateZ(-100px);
+      rotateY(10deg) translateZ(-100px);
     transform: rotateY(10deg) translateZ(-100px);
     /**
      * translate 平移

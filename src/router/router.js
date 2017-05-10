@@ -4,12 +4,13 @@ import fade from '../page/fade.vue'
 import resume from '../page/resume.vue'
 import home from '../page/home.vue'
 import test from '../page/test.vue'
+import elmhome from '../elmpage/home.vue'
 
 
 export default [{
     path: '/',
     component: App,
-    redirect: '/home',
+    redirect: '/elmhome',
     children: [{
         path: '/home',
         component: home
@@ -25,6 +26,10 @@ export default [{
     {
         path: '/test',
         component: test
+    },
+    {
+        path:'/elmhome',
+        component:elmhome
     }
 
     ]
