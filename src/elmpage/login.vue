@@ -23,11 +23,7 @@
             <section class="input_container">
                 <input v-if="showPassword" type="text" placeholder="密码" v-model="password" />
                 <input v-else type="password" placeholder="密码" v-model="password" />
-                <div class="button_switch" :class="{change_to_text:showPassword}">
-                    <div class="circle_button" :class="{trans_to_right:showPassword}" @click="changePasswordType"></div>
-                    <span>abc</span>
-                    <span>...</span>
-                </div>
+               <switch-button :statedefault="showPassword" openText="abc" closeText="..." @changeState="changePasswordType"/>
             </section>
             <section class="input_container">
                 <input type="text" placeholder="验证码" maxlength="4" v-model="codeNumber" />
@@ -50,68 +46,131 @@
 </template>
 
 <script>
-    import headTop from '../components/headTop.vue'
-    import alertTip from '../components/alertTip.vue'
-    export default {
-        data () {
-            return {
-                loginWay: true, //登录方式，默认短信登录
-                showPassword: false, // 是否显示密码
-                phoneNumber: null, //电话号码
-                mobileCode: null, //短信验证码
-                validate_token: null, //获取短信时返回的验证值，登录时需要
-                computedTime: 0, //倒数记时
-                userInfo: null, //获取到的用户信息
-                userAccount: null, //用户名
-                password: null, //密码
-                captchaCodeImg:null, //验证码地址
-                codeNumber: null, //验证码
-                showAlert: false, //显示提示组件
-                alertText: null, //提示的内容
-                
-            }
+import { mapState, mapMutations } from 'vuex'
+import headTop from '../components/headTop.vue'
+import alertTip from '../components/alertTip.vue'
+import　switchButton from '../components/switchButton'
+import { checkExist, mobileCode, sendLogin, accountLogin,getcaptchas } from '../service/getData.js'
+export default {
+    data() {
+        return {
+            loginWay: true, //登录方式，默认短信登录
+            showPassword: false, // 是否显示密码
+            phoneNumber: null, //电话号码
+            mobileCode: null, //短信验证码
+            validate_token: null, //获取短信时返回的验证值，登录时需要
+            computedTime: 0, //倒数记时
+            userInfo: null, //获取到的用户信息
+            userAccount: null, //用户名
+            password: null, //密码
+            captchaCodeImg: null, //验证码地址
+            codeNumber: null, //验证码
+            showAlert: false, //显示提示组件
+            alertText: null, //提示的内容
+
+        }
+    },
+    computed: {
+        rightPhoneNumber() {
+            return /^1\d{10}$/gi.test(this.phoneNumber);
+        }
+    },
+    components: { headTop, alertTip, switchButton},
+    methods: {
+        ...mapMutations([
+            'RECORD_USERINFO',
+        ]),
+        //切换登录方式
+        changeLoginWay() {
+            this.loginWay = !this.loginWay;
         },
-        computed: {
-          rightPhoneNumber(){
-              return /^1\d{10}$/gi.test(this.phoneNumber);
-          }  
-        },
-        components:{headTop,alertTip},
-        methods: {
-            //切换登录方式
-            changeLoginWay(){
-                this.loginWay =!this.loginWay;
-            },
-            //获取短信验证码
-            async getVerifyCode(){
-                if(this.rightPhoneNumber){
-                    this.computedTime =30;
-                    //setInterval(function,time)周期性调用函数
-                    this.timer = setInterval(()=>{
-                        this.computedTime--;
-                        if(this.computedTime == 0){
-                            clearInterval(this.timer)
-                        }
-                    },1000)
-                    //判断用户是否存在
-                    let exist =await checkExist(this.phoneNumber,'mobile');
-                    if (exsit.message){
-                        this.showAlert =true;
-                        this.alertText =exsit.message;
+        //获取短信验证码
+        async getVerifyCode() {
+            if (this.rightPhoneNumber) {
+                //判断用户是否存在
+                let exist = await checkExist(this.phoneNumber, 'mobile');
+                console.log(exist);
+                if (exist.message) {
+                    this.showAlert = true;
+                    this.alertText = exist.message;
+                    return;
+                } else if (!exist.is_exists) {
+                    this.showAlert = true;
+                    this.alertText = '您输入的手机号尚未绑定';
+                    return;
+                }
+                //倒计时
+                this.computedTime = 30;
+                this.timer = setInterval(() => {
+                    this.computedTime--;
+                    if (this.computedTime == 0) {
+                        clearInterval(this.timer)
                     }
-                }                
-            },
-            //登录
-            mobileLogin(){},
-            //改变密码显示方式
-            changePasswordType(){
-                this.showPassword=!this.showPassword;
-            },
-            closeTip(){
-                this.showAlert=false;
+                }, 1000);
+                //发送短信验证码
+                let res = await mobileCode(this.phoneNumber);
+                if (res.message) {
+                    this.showAlert = true;
+                    this.alertText = res.message;
+                    return;
+                }
+                this.validate_token = res.validate_token;
             }
+        },
+        //登录
+        async mobileLogin() {
+            if (this.loginWay) {
+                if (!this.rightPhoneNumber) {
+                    this.showAlert = true;
+                    this.alertText = '手机号码不正确';
+                    return
+                } else if (!(/^\d{6}$/gi.test(this.mobileCode))) {
+                    this.showAlert = true;
+                    this.alertText = '短信验证码不正确';
+                    return
+                }
+                this.userInfo = await sendLogin(this.mobileCode, this.phoneNumber,
+                    this.validate_token);
+            } else {
+                if (!this.userAccount) {
+                    this.showAlert = true;
+                    this.alertText = '请输入手机号/邮箱/用户名';
+                    return;
+                }
+                if (!this.password) {
+                    this.showAlert = true;
+                    this.alertText = '请输入密码';
+                    return
+                }
+                if (!this.codeNumber) {
+                    this.showAlert = true;
+                    this.alertText = '请输入验证码';
+                }
+                this.userInfo = await accountLogin(this.userAccount, this.passWord, this.codeNumber);
+            }
+            if (!this.userInfo.user_id) {
+                this.showAlert = true;
+                this.alertText = this.userInfo.message;
+            } else {
+                //保存用户信息;
+                this.RECORD_USERINFO(this.userInfo);
+                this.$router.go(-1);
+            }
+        },
+        //改变密码显示方式
+        changePasswordType() {
+            this.showPassword = !this.showPassword;
+        },
+        //获取验证码
+        async getCaptchaCodeImg(){
+            let res = await getcaptchas();
+            this.captchaCodeImg = res.code;
+        },
+        closeTip() {
+            this.showAlert = false;
         }
     }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -184,40 +243,7 @@
     margin-right: .3rem;
 }
 
-.button_switch {
-    background-color: #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    @include wh(2rem, .7rem);
-    padding: 0 .2rem;
-    border: 1px;
-    border-radius: .5rem;
-    position: relative;
-    transition: all .3s;
-    .circle_button {
-        transition: all.3s;
-        position: absolute;
-        z-index: 1;
-        @include wh(1.2rem, 1.2rem);
-        left: -.1rem;
-        box-shadow: 0 0.026667rem 0.053333rem 0 rgba(0, 0, 0, .1);
-        /*阴影*/
-        background-color: #f1f1f1;
-        border-radius: 50%;
-    }
-    .trans_to_right {
-        transform: translateX(1.3rem);
-    }
-    span {
-        @include sc(.45rem, #fff);
-        transform: translateY(.05rem);
-        line-height: .6rem;
-    }
-    span:nth-of-type(2) {
-        transform: translateY(-.08rem);
-    }
-}
+
 
 .change_to_text {
     background-color: #4cd964;

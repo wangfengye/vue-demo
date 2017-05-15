@@ -10,23 +10,23 @@
 </template>
 
 <script>
-    export default{
-        data () {
-            return {
-                
-            }
-        },
-        mounted () {
-            
-        },
-        props: ['alertText'],
-        methods: {
-            closeTip(){
-                //触发父组件的closeTip事件
-                this.$emit('closeTip');
-            }
+export default {
+    data() {
+        return {
+
+        }
+    },
+    mounted() {
+
+    },
+    props: ['alertText'],
+    methods: {
+        closeTip() {
+            //触发父组件的closeTip事件
+            this.$emit('closeTip');
         }
     }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -83,7 +83,7 @@
             background-color: #f8cb86;
         }
     }
-    .tip_text {
+    .text {
         @include sc(.7rem, #333);
         line-height: .9rem;
         text-align: center;

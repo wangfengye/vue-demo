@@ -1,7 +1,6 @@
 /*
 * 左右滑动按钮
 * defaultState 默认状态
-* bug 调用组件时,父组件无法获取该组件的状态
 */
 
 <template>
@@ -12,21 +11,22 @@
     </div>
 </template>
 <script>
-export default{
-    data () {
+export default {
+    data() {
         return {
-           isOpen:true,
+            isOpen: false,
         }
     },
-    created () {
+    created() {
         this.isOpen = this.defaultState;
     },
-    props: ['defaultState','openText','closeText'],
+    props: ['defaultState', 'openText', 'closeText'],
     methods: {
-        changeState(){
-            this.isOpen =!this.isOpen;
+        changeState() {
+            this.isOpen = !this.isOpen
+            this.$emit('changeState', this.isOpen)
         }
-    }
+    }　
 }
 </script>
 
