@@ -126,7 +126,7 @@ span {
 * {
     -webkit-transition: all .3s;
     transition: all .3s;
-    font-size: 14px;
+  /*  font-size: 14px;*/
 }
 
 </style>

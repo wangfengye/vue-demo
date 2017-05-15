@@ -4,7 +4,7 @@
     </div>
 </template>
 <script>
-    import headTop from '../components/head-top.vue'
+    import headTop from '../components/headTop.vue'
     export default{
         data(){
             return{

@@ -2,18 +2,23 @@
 <div>
     <button v-on:click="getLength">
         length</button>
-    
     <div class="code" v-html="codeInStyleTag"></div>
+    <br/>
+    <switch-button open=true  openText="S" closeText="N"/>
+    <alert-tip alertText="hahaha"/>
     </div>
 </template>
 <script>
+import switchButton from '../components/switchButton.vue'
+import alertTip from '../components/alertTip.vue'
 export default {
     data() {
         return {
             list: [],
-            code:'*{background-color:RED}'
+            code:'*{'
         }
     },
+    components:{switchButton,alertTip},
     computed:{
           codeInStyleTag(){
             return `<style>${this.code}</style>`
