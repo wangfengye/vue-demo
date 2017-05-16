@@ -23,7 +23,7 @@
             <section class="input_container">
                 <input v-if="showPassword" type="text" placeholder="密码" v-model="password" />
                 <input v-else type="password" placeholder="密码" v-model="password" />
-               <switch-button :statedefault="showPassword" openText="abc" closeText="..." @changeState="changePasswordType"/>
+                <switch-button :statedefault="showPassword" openText="abc" closeText="..." @changeState="changePasswordType" />
             </section>
             <section class="input_container">
                 <input type="text" placeholder="验证码" maxlength="4" v-model="codeNumber" />
@@ -49,8 +49,8 @@
 import { mapState, mapMutations } from 'vuex'
 import headTop from '../components/headTop.vue'
 import alertTip from '../components/alertTip.vue'
-import　switchButton from '../components/switchButton'
-import { checkExist, mobileCode, sendLogin, accountLogin,getcaptchas } from '../service/getData.js'
+import 　switchButton from '../components/switchButton'
+import { checkExist, mobileCode, sendLogin, accountLogin, getcaptchas } from '../service/getData.js'
 export default {
     data() {
         return {
@@ -75,7 +75,7 @@ export default {
             return /^1\d{10}$/gi.test(this.phoneNumber);
         }
     },
-    components: { headTop, alertTip, switchButton},
+    components: { headTop, alertTip, switchButton },
     methods: {
         ...mapMutations([
             'RECORD_USERINFO',
@@ -162,7 +162,7 @@ export default {
             this.showPassword = !this.showPassword;
         },
         //获取验证码
-        async getCaptchaCodeImg(){
+        async getCaptchaCodeImg() {
             let res = await getcaptchas();
             this.captchaCodeImg = res.code;
         },
