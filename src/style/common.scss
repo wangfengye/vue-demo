@@ -53,13 +53,13 @@ html,body{
 
 
 .clear:after{
-    content: '';
+    content: '';//插入内容
     display: block;
-    clear: both;
+    clear: both; //清除浮动
 }
 
 .clear{
-    zoom:1;
+    zoom:1;//ie专有,放大倍数;用于清除浮动
 }
 
 .back_img{
@@ -88,9 +88,9 @@ html,body{
 }
 
 .ellipsis{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow: hidden;//如何显示溢出内容
+    text-overflow: ellipsis;//溢出文字
+    white-space: nowrap;//留白处理
 }
 
 .paddingTop{

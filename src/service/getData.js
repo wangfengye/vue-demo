@@ -2,7 +2,20 @@ import fetch from '../config/fetch'
 
 import * as resume from './tempdata/resume'
 import * as login from './tempdata/elm/login'
-
+import * as home from './tempdata/elm/home'
+import * as city from './tempdata/elm/city'
+import * as msite from './tempdata/elm/msite'
+import * as search from './tempdata/elm/search'
+import * as food from './tempdata/elm/food'
+import * as shop from './tempdata/elm/shop'
+import * as confirm from './tempdata/elm/confirm'
+import * as order from './tempdata/elm/order'
+import * as service from './tempdata/elm/service'
+import * as addDetail from './tempdata/elm/addDetail'
+import * as addresspart from './tempdata/elm/address'
+import * as vip from './tempdata/elm/vip'
+import * as hongbao from './tempdata/elm/hongbao'
+import * as meizi from './tempdata/elm/meizi'
 
 const setpromise = data => {
     return new Promise((resolve, reject) => {
