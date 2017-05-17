@@ -11,7 +11,7 @@
         <div class="title_head ellipsis" v-if="headTitle">
             <span class="title_text">{{headTitle}}</span>
         </div>
-        <slot name ="extra"></slot>
+        <slot  name ="extra"></slot>
     </header>
 </template>
 
@@ -85,5 +85,6 @@ export default{
         font-weight: bold;
     }
 }
+
 </style>
 

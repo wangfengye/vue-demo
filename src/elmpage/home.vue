@@ -2,6 +2,7 @@
 <template>
     <div class="container">
         <head-top signUp="true">
+            
         </head-top>
         <nav class="city_nav">
             <div class="city_tip">
@@ -16,7 +17,7 @@
         <section id="hot_city_container">
             <h4 class="city_title">热门城市</h4>
             <ul class="citylistul clear ">
-                <router-link tag="li" v-for="item in hotcity" :to="'/city'" class="font_blue">
+                <router-link tag="li" v-for="item in hotcity" :to="'/city/'+item.id" class="font_blue">
                     {{item.name}}
                 </router-link>
             </ul>
@@ -28,7 +29,7 @@
                         <span v-if="index == 0">（按字母排序）</span>
                     </h4>
                     <ul class="citylistul clear ">
-                        <router-link tag="li" v-for="item in value" :to="'/city'" :key="item.id" class="ellipsis">
+                        <router-link tag="li" v-for="item in value" :to="'/city/'+item.id" :key="item.id" class="ellipsis">
                             {{item.name}}
                         </router-link>
                     </ul>
