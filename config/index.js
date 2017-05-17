@@ -9,7 +9,7 @@ module.exports = {
         index: path.resolve(__dirname, '../demo/index.html'),
         assetsRoot: path.resolve(__dirname, '../demo'),
         assetsSubDirectory: 'static',
-        assetsPublicPath: '/demo/',
+        assetsPublicPath: '',
         productionSourceMap: true,
         // Surge or Netlify already gzip all static assets for you.
         // Before setting to `true`, make sure to:
