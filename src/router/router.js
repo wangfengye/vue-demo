@@ -5,6 +5,7 @@ import home from '../page/home.vue'
 import test from '../page/test.vue'
 import elmhome from '../elmpage/home.vue'
 import login from '../elmpage/login.vue'
+import city from '../elmpage/city.vue'
 
 
 export default [{
@@ -35,6 +36,10 @@ export default [{
     {
         path: '/login',
         component: login
+    },
+    {
+        path:'/city',
+        component:city
     }
 
     ]
