@@ -1,12 +1,13 @@
 import App from '../App.vue'
-import fade from '../page/fade.vue'
-import resume from '../page/resume.vue'
-import home from '../page/home.vue'
-import test from '../page/test.vue'
-import elmhome from '../elmpage/home.vue'
-import login from '../elmpage/login.vue'
-import city from '../elmpage/city.vue'
 
+const home = r => require.ensure([], () => r(require('../page/home')), 'home');
+const fade = r => require.ensure([], () => r(require('../page/fade')), 'fade');
+const resume = r => require.ensure([], () => r(require('../page/resume')), 'resume');
+const test = r => require.ensure([], () => r(require('../page/test')), 'test');
+
+const elmhome = r => require.ensure([], () => r(require('../elmpage/home')), 'elmhome');
+const login = r => require.ensure([], () => r(require('../elmpage/login')), 'login');
+const city = r => require.ensure([], () => r(require('../elmpage/city')), 'city');
 
 export default [{
     path: '/',
@@ -38,8 +39,8 @@ export default [{
         component: login
     },
     {
-        path:'/city',
-        component:city
+        path: '/city/:cityid',
+        component: city
     }
 
     ]
