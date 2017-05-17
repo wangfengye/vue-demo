@@ -16,6 +16,10 @@ export default{
             {
                 url:'/resume',
                 title:'简历'
+            },
+            {
+                url:'/elmpage',
+                title:'饿了吗'
             }]
         }
     }
