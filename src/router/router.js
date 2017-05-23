@@ -8,6 +8,7 @@ const test = r => require.ensure([], () => r(require('../page/test')), 'test');
 const elmhome = r => require.ensure([], () => r(require('../elmpage/home')), 'elmhome');
 const login = r => require.ensure([], () => r(require('../elmpage/login')), 'login');
 const city = r => require.ensure([], () => r(require('../elmpage/city')), 'city');
+const msite = r => require.ensure([], () => r(require('../elmpage/msite')), 'msite');
 
 export default [{
     path: '/',
@@ -41,6 +42,10 @@ export default [{
     {
         path: '/city/:cityid',
         component: city
+    },
+    {
+        path:'/msite',
+        component:msite
     }
 
     ]
