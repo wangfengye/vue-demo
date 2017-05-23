@@ -5,6 +5,7 @@ import store from './store/'
 import {routerMode} from './config/env'
 import './config/rem'
 import FastClick from 'fastclick'
+import 'font-awesome/css/font-awesome.min.css'
 
 if ('addEventListener' in document) {
     document.addEventListener('DOMContentLoaded', function() {
