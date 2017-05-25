@@ -11,7 +11,13 @@ vue2 + vuex + vue-router + webpack + ES6/7 + fetch + sass + flex
 ├── config                                      // 项目打包路径
 ├── demo                                        // 上线项目文件，放在服务器即可正常访问                    
 ├── src                                         // 源码目录
+│   ├── assets                                  //资源    
 │   ├── components                              // 组件
+|   |   ├──mixin.js                             //上拉加载      
+|   |   ├──loading                              //载入动画
+|   |   ├──ratingStar                           //五星平分
+|   |   ├──shopList                             //商品列表
+|   |   ├──footGuide                            //底部导航         
 |   |   ├──switchButton.vue                     //开关按钮
 │   │   ├──alertTip.vue                         //提示框
 │   │   └── headTop.vue                         // toolbar

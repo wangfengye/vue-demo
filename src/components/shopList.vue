@@ -24,7 +24,7 @@
                             </section>
                         </section>
                         <section class="rating_order_num_right" v-if="item.delivery_mode">
-                            <span class="delivery_style delivery_left">{{item.delivery_mode.text}}</span <span class="delivery_style delivery_right">准时达</span>
+                            <span class="delivery_style delivery_left">{{item.delivery_mode.text}}</span> <span class="delivery_style delivery_right">准时达</span>
                         </section>
                     </h5>
                     <h5 class="fee_distance">
@@ -44,6 +44,17 @@
                 </hgroup>
             </router-link>
         </ul>
+        <p v-else class="empty_data">没有更多了</p>
+		<aside class="return_top" @click="backTop" v-if="showBackStatus">
+			<svg class="back_top_svg">
+				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#backtop"></use>
+			</svg>
+		</aside>
+		<footer class="loader_more" v-show="preventRepeatReuqest">正在加载更多商家...</footer>
+		<div ref="abc" style="background-color: red;"></div>
+		<transition name="loading">
+			<loading v-show="showLoading"></loading>
+		</transition>
     </div>
 </template>
 
