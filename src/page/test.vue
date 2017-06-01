@@ -8,7 +8,10 @@
                     <alert-tip v-show="false" alertText="hahaha" />
                     <rating-star :rating="stars" class="rating_star"/>
                         <loading v-show="s"></loading>-->
-       <shop-list  geohash="wtw3sjz9p6xf"></shop-list>
+    
+      <buy-cart class="a" shopId='1862826' :foods='foods' >
+
+      </buy-cart>
        <foot-guide/>
     </div>
 </template>
@@ -21,6 +24,7 @@ import alertTip from '../components/alertTip.vue'
 import { loadMore } from '../components/mixin.js'
 import { mapMutations } from 'vuex'
 import shopList from 'src/components/shopList'
+import buyCart from 'src/components/buyCart'
 export default {
     data() {
         return {
@@ -28,14 +32,95 @@ export default {
             code: '*{',
             s: false,
             stars: 0,
-            listEnd: 3
+            listEnd: 3,
+            foods:{
+                "rating": 4.625, 
+                "restaurant_id": 834828, 
+                "pinyin_name": "nongqingkaochi", 
+                "display_times": [ ], 
+                "attrs": [ ], 
+                "description": "精选全翅经美味香料腌制烘烤而成，入口鲜嫩多汁，回味无穷。", 
+                "month_sales": 173, 
+                "rating_count": 10, 
+                "tips": "10评价 月售173份", 
+                "image_path": "3dc88b341318461280ff1d72ee580f70jpeg", 
+                "specifications": [
+                    {
+                        "values": [
+                            "4只装", 
+                            "6只装"
+                        ], 
+                        "name": "规格"
+                    }
+                ], 
+                "server_utc": 1486459733, 
+                "is_essential": false, 
+                "attributes": [ ], 
+                "item_id": "16840096069", 
+                "limitation": { }, 
+                "name": "浓情烤翅", 
+                "satisfy_count": 9, 
+                "activity": null, 
+                "satisfy_rate": 90, 
+                "specfoods": [
+                    {
+                        "original_price": null, 
+                        "sku_id": "121379213637", 
+                        "name": "浓情烤翅", 
+                        "pinyin_name": "nongqingkaochi", 
+                        "restaurant_id": 834828, 
+                        "food_id": 508807826, 
+                        "packing_fee": 0, 
+                        "recent_rating": 4.25, 
+                        "promotion_stock": -1, 
+                        "price": 30, 
+                        "sold_out": false, 
+                        "recent_popularity": 81, 
+                        "is_essential": false, 
+                        "item_id": "16840096069", 
+                        "checkout_mode": 1, 
+                        "specs": [
+                            {
+                                "name": "规格", 
+                                "value": "4只装"
+                            }
+                        ], 
+                        "stock": 9979
+                    }, 
+                    {
+                        "original_price": null, 
+                        "sku_id": "121379214661", 
+                        "name": "浓情烤翅", 
+                        "pinyin_name": "nongqingkaochi", 
+                        "restaurant_id": 834828, 
+                        "food_id": 508807827, 
+                        "packing_fee": 0, 
+                        "recent_rating": 5, 
+                        "promotion_stock": -1, 
+                        "price": 44, 
+                        "sold_out": false, 
+                        "recent_popularity": 92, 
+                        "is_essential": false, 
+                        "item_id": "16840096069", 
+                        "checkout_mode": 1, 
+                        "specs": [
+                            {
+                                "name": "规格", 
+                                "value": "6只装"
+                            }
+                        ], 
+                        "stock": 9982
+                    }
+                ], 
+                "category_id": 8006634
+            }, 
 
         }
     },
     mounted() {
 
     },
-    components: { switchButton, alertTip, loading, ratingStar,shopList,footGuide },
+    components: { switchButton, alertTip, loading, ratingStar,shopList,footGuide,buyCart },
     computed: {
         codeInStyleTag() {
             return `<style>${this.code}</style>`
@@ -83,5 +168,8 @@ export default {
 <style>
 .rating_star {
     margin: 1rem;
+}
+.a{
+    margin-left: 60%;
 }
 </style>

@@ -62,7 +62,7 @@
 import { mapState } from 'vuex'
 import { shopList } from 'src/service/getData'
 import { showBack, animate } from 'src/config/mUtils'
-import { loadMore, getImgPath } from './mixin'
+import { loadMore, getImgPath } from './mixin'// "./"当前路径
 import loading from './loading'
 import ratingStar from './ratingStar'
 export default {
