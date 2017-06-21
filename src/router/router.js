@@ -4,6 +4,7 @@ const home = r => require.ensure([], () => r(require('../page/home')), 'home');
 const fade = r => require.ensure([], () => r(require('../page/fade')), 'fade');
 const resume = r => require.ensure([], () => r(require('../page/resume')), 'resume');
 const test = r => require.ensure([], () => r(require('../page/test')), 'test');
+const god = r => require.ensure([],()=>r(require('../page/god')),'god');
 
 const elmhome = r => require.ensure([], () => r(require('../elmpage/home')), 'elmhome');
 const login = r => require.ensure([], () => r(require('../elmpage/login')), 'login');
@@ -30,6 +31,9 @@ export default [{
     {
         path: '/resume',
         component: resume
+    },{
+        path: '/god',
+        component:god
     },
     {
         path: '/test',

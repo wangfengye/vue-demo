@@ -20,6 +20,10 @@ export default{
             {
                 url:'/elmpage',
                 title:'饿了吗'
+            },
+            {
+                url:'/god',
+                title:'上帝造人'
             }]
         }
     }

@@ -1,7 +1,9 @@
-<template>
-    <div class="safe_shop">
+ <template>
+	<div class="safe_shop">
+        <head-top head-title="食品监督安全公示" go-back='true'></head-top>
         <section id="scroll_section" class="scroll_container">
             <section>
+                
                 <section class="shop_status_container">
                     <header>食品监督安全公示</header>
                     <section class="shop_statu_detail">
@@ -132,80 +134,79 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-@import 'src/style/mixin';
-.safe_shop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding-top: 1.95rem;
-    background-color: #ebebeb;
-    z-index: 102;
-}
-
-.scroll_container {
-    @include wh(100%, 100%);
-}
-
-ul {
-    margin-left: 1rem;
-    padding: .4rem 0;
-    li {
+  @import 'src/style/mixin';
+	
+	.safe_shop{
+		position: fixed;
+		top: 0;
+		left: 0;
+        right: 0;
+        bottom: 0;
+        padding-top: 1.95rem;
+		background-color: #ebebeb;
+		z-index: 102;
+	}
+    .scroll_container{
+        @include wh(100%, 100%);
+    }
+    ul{
+        margin-left: 1rem;
+        padding: .4rem 0;
+        li{
+            margin-bottom: .4rem;
+            p{
+                line-height: 1rem;
+            }
+            p:nth-of-type(1){
+                @include sc(.55rem, #333);
+            }
+            p:nth-of-type(2){
+                @include sc(.5rem, #999);
+            }
+        }
+    }
+    .shop_status_container{
+        background-color: #fff;
         margin-bottom: .4rem;
-        p {
-            line-height: 1rem;
+        header{
+            line-height: 1.8rem;
+            padding: 0 .6rem;
+            border-bottom: 0.025rem solid #f1f1f1;
+            @include sc(.75rem, #333);
         }
-        p:nth-of-type(1) {
-            @include sc(.55rem, #333);
-        }
-        p:nth-of-type(2) {
-            @include sc(.5rem, #999);
+        .shop_statu_detail{
+            display: flex;
+            padding: .6rem;
+            svg{
+                @include wh(2rem, 2rem);
+                margin-right: .6rem;
+            }
+            .check_date{
+                span{
+                    @include sc(.55rem, #666);
+                }
+                .shop_status_well{
+                    color: rgb(126, 211, 33);
+                }
+                .shop_status_bad{
+                    color: red;
+                }
+            }
         }
     }
-}
-
-.shop_status_container {
-    background-color: #fff;
-    margin-bottom: .4rem;
-    header {
-        line-height: 1.8rem;
-        padding: 0 .6rem;
-        border-bottom: .025rem solid #f1f1f1;
-        @include sc(.75rem, #333);
-    }
-    .shop_statu_detail {
-        display: flex;
+    .license_img{
         padding: .6rem;
-        svg {
-            @include wh(2rem, 2rem);
-            margin-right: .6rem;
-        }
-        .check_date {
-            span {
-                @include sc(.55rem, #666);
-            }
-            .shop_status_well {
-                color: rgb(126, 211, 33)
-            }
-        
-        .shop_status_bad {
-            color: red;
-        }}
-    }
-}
-.license_img{
-    padding: .6rem;
-    background-color:#fff;
-    padding-bottom: 8rem;
-    .img_container{
-        background-color:#ebebeb;
-        img{
-              width: 40%;
+        background-color: #fff;
+        padding-bottom: 8rem;
+        .img_container{
+            background-color: #ebebeb;
+            img{
+                width: 40%;
                 height: auto;
                 margin: .4rem;
                 vertical-align: middle;
+            }
         }
-    } 
-}
+    }
+    
 </style>

@@ -30,19 +30,121 @@
                     </footer>
                 </section>
             </header>
+            <transition name="fade">
+                <section class="activities_details" v-if="showActivities">
+                    <h2 class="activities_shoptitle">{{shopDetailData.name}}</h2>
+                    <h3 class="activities_ratingstar">
+                        <rating-star :rating='shopDetailData.rating' />
+                    </h3>
+                    <section class="activities_list">
+                        <header class="activities_title_style">
+                            <span>优惠信息</span>
+                        </header>
+                        <ul>
+                            <li v-for="item in shopDetailData.activities" :key="item.id">
+                                <span class="activities_icon" :style="{backgroundColor:'#'+item.icon_color,borderColor:'#'+item.icon_color}">{{item.icon_name}}</span>
+                                <span>{{item.description}}</span>
+                            </li>
+                        </ul>
+                    </section>
+                    <section class="activities_shopinfo">
+                        <header class="activities_title_style">
+                            <span>商家公告</span>
+                        </header>
+                        <p>{{promotionInfo}}</p>
+                        <svg width="60" height="60" class="close_activities" @click.stop="showActivitiesFun">
+                            <circle cx="30" cy="30" r="25" stroke="#555" stroke-width="1" fill="none" />
+                            <line x1="22" y1="38" x2="38" y2="22" style="stroke:#999;stroke-width:2" />
+                            <line x1="22" y1="22" x2="38" y2="38" style="stroke:#999;stroke-width:2" />
+                        </svg>
+                    </section>
+                </section>
+            </transition>
+            <section class="change_show_type" ref="chooseType">
+                <div>
+                    <span :class='{activity_show:changeShowType =="food"}' @click="changeShowType='food'">商品</span>
+                </div>
+                <div>
+                    <span :class='{activity_show: changeShowType =="rating"}' @click="changeShowType='rating'">评价</span>
+                </div>
+            </section>
+            <transition name="fade-choose">
+                <section v-show="changeShowType=='food'" class="food_container">
+                    <section class="menu_container">
+                        <section class="menu_left" id="wrapper_menu">
+                            <ul>
+                                <li v-for="(item,index) in menuList" :key="index" class="menu_left_li" :class="{activity_menu: index == menuIndex}" @click="chooseMenu(index)">
+                                    <img :src="getImgPath(item.icon_url)" v-if="item.icon_url">
+                                    <span>{{item.name}}</span>
+                                    <span class="category_num" v-if="categoryNum[index]&&item.type==1"> {{categoryNum[index]}}</span>
+                                </li>
+                            </ul>
+                        </section>
+                        <section class="menu_right" ref="menuFoodList">
+                            <ul>
+                                <li v-for="(item,index) in menuList" :key="index">
+                                    <header class="menu_detail_header">
+                                        <section class="menu_detail_header_left">
+                                            <strong class="menu_item_title">{{item.name}}</strong>
+                                            <span class="menu_item_description">{{item.description}}</span>
+                                        </section>
+                                        <span class="menu_detail_header_right" @click="showTitleDetail(index)"></span>
+                                        <p class="description_tip" v-if="index ==TitleDetailIndex">
+                                            <span>{{item.name}}</span>{{item.description}}
+                                        </p>
+                                    </header>
+                                    <section v-for="(foods,foodindex) in item.foods" :key="foodindex" class="menu_detail_list">
+                                        <router-link :to="{path: 'shop/foodDetail', query:{image_path:foods.image_path, description: foods.description, month_sales: foods.month_sales, name: foods.name, rating: foods.rating, rating_count: foods.rating_count, satisfy_rate: foods.satisfy_rate, foods, shopId}}" tag="div" class="menu_detail_link">
+                                            <section class="menu_food_img">
+                                                <img :src="getImgPath(foods.image_path)">
+                                            </section>
+                                            <section class="menu_food_description">
+                                                <h3 class="food_description_head">
+                                                    <strong class="description_foodname">{{foods.name}}</strong>
+                                                    <ul v-if="foods.attributes.length" class="attributes_ul">
+                                                        <li v-for="(attribute,foodindex) in foods.attributes" :key="foodindex"  :style="{color: '#' + attribute.icon_color,borderColor:'#' +attribute.icon_color}" :class="{attribute_new: attribute.icon_name == '新'}">
+                                                            <p :style="{color:attribute.icon_name=='新'?'#fff':'#'+attribute.icon_color}">{{attribute.icon_name == '新'? '新品':attribute.icon_name}}</p>
+                                                        </li>
+                                                    </ul>
+                                                </h3>
+                                                <p class="food_description_content">{{foods.description}}</p>
+                                                <p class="food_description_sale_rating">
+                                                    <span>月售{{foods.month_sales}}份</span>
+                                                    <span>好评率{{foods.satisfy_rate}}%</span>
+                                                </p>
+                                                <p v-if="foods.activity" class="food_activity">
+                                                    <span :style="{color:'#'+foods.activity.image_text_color,borderColor:'#'+foods.activity.icon_color}">{{foods.activity.image_text}}</span>
+                                                </p>
+                                            </section>
+                                        </router-link>
+                                        <footer class="menu_detail_footer">
+                                            <section class="food_price">
+                                               <span>¥</span>
+                                                <span>{{foods.specfoods[0].price}}</span>
+                                                <span v-if="foods.specifications.length">起</span>
+                                            </section>
+                                            <buy-cart :shopId='shopId' :foods='foods' @moveInCart="listenInCart" @showChooseList="showChooseList" @showReduceTip="showReduceTip" @showMoveDot="showMoveDotFun"></buy-cart>
+                                        </footer>
+                                    </section>
+                                </li>
+                            </ul>
+                        </section>
+                    </section>
+                </section>
+            </transition>
         </section>
         <transition name="router-slid" mode="out-in">
             <router-view></router-view>
         </transition>
     </div>
 </template>
-
+da
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { msiteAdress, shopDetails, foodMenu, getRatingList, ratingScores, ratingTags } from 'src/service/getData'
 import headTop from 'src/components/headTop'
 import loading from 'src/components/loading'
-/*import buyCart from 'src/components/buyCart'*/
+import buyCart from 'src/components/buyCart'
 import ratingStar from 'src/components/ratingStar'
 import { loadMore, getImgPath } from 'src/components/mixin'
 import BScroll from 'better-scroll'
@@ -96,7 +198,7 @@ export default {
         this.windowHeight = window.innerHeight;//可视区域的高度
     },
     mixins: [loadMore, getImgPath],
-    components: { headTop },
+    components: { headTop,buyCart },
     computed: {
         ...mapState([
             'latitude', 'longitude', 'cartList'
@@ -515,7 +617,6 @@ export default {
                 @include wh(.45rem, .45rem);
                 position: absolute;
                 right: .3rem;
-            
             }
         }
     }
