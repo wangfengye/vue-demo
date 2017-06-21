@@ -4,15 +4,24 @@
     
         <div class="content" v-if="!isResult">
             <img src="http://url.pcarzh.cn/gameTest/0531shangdi/style/thumb.png" />
-            	<div >
-					<label>姓名</label>
-					<input type="text"  v-model="name" maxlength="4" placeholder="请输入姓名">
-				</div>
-                <button @click="getResult()">确定</button>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">姓名</label>
+                    </div>
+                    <div class="weui-cell__hd">
+                        <input type="text" maxlength="4" placeholder="请输入姓名" class="weui-input" v-model="name" />
+                    </div>
+                </div>
+            </div>
+            <div class="button weui-btn-area" @click="getResult()">
+                <a class="weui-btn " href="javascript:" id="showTooltips">提交</a>
+            </div>
         </div>
         <div class="result" v-if="isResult">
-            <h5>{{name}}被上帝制造时...</h5>
             <img :src="image" />
+            <h5>
+                <strong :style="{color:color}">{{name}}</strong>被上帝制造时...</h5>
         </div>
     </div>
 </template>
@@ -22,24 +31,37 @@ import headTop from 'src/components/headTop'
 export default {
     data() {
         return {
-            isResult:false,
-            name:'',
-            image:'',
+            isResult: false,
+            name: '',
+            image: '',
+            color: "#ff0000",
         }
     },
     components: { headTop },
     methods: {
-        getResult(){
+        getRandomColor() {
+            let color = "#";
+            for (let i = 0; i < 6; i++) {
+                color += '0123456789abcdef'[Math.floor(Math.random() * 16)];
+            }
+
+            this.color = color
+        },
+        getResult() {
             console.log("onclick");
-			let rand = Math.floor(Math.random() * 32)+1;
-            this.image ="http://url.pcarzh.cn/gameTest/0531shangdi/sucai/"+rand+".png"; 
-            this.isResult =true;
+            let rand = Math.floor(Math.random() * 32) + 1;
+            this.image = "http://url.pcarzh.cn/gameTest/0531shangdi/sucai/" + rand + ".png";
+            this.getRandomColor();
+
+            this.isResult = true;
         }
+
     }
 }
 </script>
 
 <style lang='scss' scoped>
+@import 'src/style/weui';
 @import 'src/style/mixin';
 .content {
     padding-top: 2rem;
@@ -48,6 +70,11 @@ export default {
         padding-left: 20%;
         width: 60%;
     }
+    div {
+        a {
+            background-color: $blue;
+        }
+    }
 }
 
 .result {
@@ -55,6 +82,14 @@ export default {
     img {
         padding-left: .2rem;
         width: 100%;
+    }
+    h5 {
+        position: absolute;
+        top: 4rem;
+        left: 1rem;
+        strong {
+            color: greenyellow
+        }
     }
 }
 </style>
