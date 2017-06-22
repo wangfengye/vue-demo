@@ -56,4 +56,7 @@ vue2 + vuex + vue-router + webpack + ES6/7 + fetch + sass + flex
 ├── index.html                                  // 入口html文件
 .
 
-
+## 贪吃蛇游戏
+### 问题
+* this 的作用域,含义
+* vue 对数组元素的更新

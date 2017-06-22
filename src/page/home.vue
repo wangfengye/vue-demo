@@ -1,29 +1,33 @@
 <template>
-<div>
-    <ul>
-        <router-link :to="{path:item.url}" v-for="item in list" tag='li' >{{item.title}}</router-link>
-    </ul>
-</div>
+    <div>
+        <ul>
+            <router-link :to="{path:item.url}" v-for="item in list" tag='li'>{{item.title}}</router-link>
+        </ul>
+    </div>
 </template>
 <script>
-export default{
-    data(){
-        return{
-            list:[{
-                url:'/fade',
-                title:'动画'
+export default {
+    data() {
+        return {
+            list: [{
+                url: '/elmpage',
+                title: '饿了吗'
             },
             {
-                url:'/resume',
-                title:'简历'
+                url: '/fade',
+                title: '动画'
             },
             {
-                url:'/elmpage',
-                title:'饿了吗'
+                url: '/resume',
+                title: '简历'
             },
             {
-                url:'/god',
-                title:'上帝造人'
+                url: '/god',
+                title: '上帝造人'
+            },
+            {
+                url:'/snake',
+                title:'贪吃蛇'
             }]
         }
     }
