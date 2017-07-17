@@ -2,13 +2,13 @@
     <div class="rating_page">
         <section class="activities_container">
             <header>活动与属性</header>
-            <ul class="actibities_ul">
+            <ul class="activities_ul">
                 <li v-for="item in shopDetail.activities" :key="item.id">
                     <span :style='{backgroundColor:"#"+item.icon_color}'>{{item.icon_name}}</span>
                     <span> {{item.description}}(APP专享)</span>
                 </li>
             </ul>
-            <ul class="actibities_ul">
+            <ul class="activities_ul">
                 <li v-for="item in shopDetail.supports" :key="item.id">
                     <span :style='{backgroundColor:"#"+item.icon_color}'>{{item.icon_name}}</span>
                     <span>{{item.description}}(APP专享)</span>
@@ -108,10 +108,7 @@ export default {
 
 <style lang='scss' scoped>
 @import 'src/style/mixin';
-.sddd {
-    @include wh(.6rem, .6rem);
-    fill: red;
-}
+
 
 .rating_page {
     position: absolute;
@@ -135,7 +132,7 @@ export default {
         border-bottom: 1px solid #f1f1f1;
         margin-bottom: .3rem;
     }
-    .actibities_ul {
+    .activities_ul {
         padding: 0 .6rem;
         li {
             margin-bottom: .2rem;

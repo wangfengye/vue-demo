@@ -10,6 +10,9 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="button weui-btn-area btn" @click="start()">
+                <a class="weui-btn " href="javascript:" id="showTooltips">{{stop?'开始':"暂停"}}</a>
+            </div>
             <p class="notice">提示：空格键控制开始/ 暂停，方向键控制蛇的移动方向，F5刷新</p>
             <p class="time">{{run}}</p>
         </div>
@@ -34,14 +37,38 @@ export default {
             stop: true,//控制开始.暂停
             snakeTimer: null,//蛇移动的即时器
             run: 0,
+            button: '开始',
 
         }
     },
     components: { headTop },
     mounted() {
         this.init()
+        this.click();
     },
     methods: {
+        start() {//按钮点击 开始
+            if (this.stop) {
+                this.move(this);
+                this.stop = false;
+                this.button = "暂停"
+            } else {
+                if (this.snakeTimer) { clearTimeout(this.snakeTimer); }
+                this.stop = true;
+                this.button = "开始"
+            }
+        },
+        click() {
+            window.addEventListener("click", function click(e) {
+                let x = e.clientX - this.snakeGrid[0][0];
+                let y = e.clientY - this.snakeGrid[0][1];
+                if (Math.abs(x) >= Math.abs(y)) {
+                    this.derectkey = (x >= 0 ? 39 : 37);
+                } else {
+                    this.derectkey = (y >= 0 ? 40 : 38)
+                }
+            })
+        },
         init() {
             this.grid = new Array();
             for (let i = 0; i < 18; i++) {
@@ -239,20 +266,26 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-body {
-    height: 50%;
+@import 'src/style/weui';
+@import 'src/style/mixin';
+.btn {
+    margin-left: 25%;
+    margin-top: .2rem;
+    width: 50%;
+    a {
+        background-color: $blue;
+    }
 }
 
 #content {
-    padding-top: 2rem;
-
+    padding-top: 2.2rem;
     text-align: center;
     table {
         margin: auto;
         border-collapse: collapse;
         overflow: hidden;
         border: 4px solid #ddd;
-        padding: .2rem;
+        padding: .1rem;
     }
     td {
         display: table-cell;

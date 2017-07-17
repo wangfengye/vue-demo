@@ -85,6 +85,7 @@ export default {
         },
         //显示规格列表
         showChooseList(foodScroll){
+            console.log("onclick:showChooseList()")
             this.$emit('showChooseList',foodScroll)
         },
         //点击多规格商品的减按钮,弹出提示
