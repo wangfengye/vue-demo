@@ -118,6 +118,9 @@ html {
     min-height: 100vh;
     /*相对于视窗的高度(1~100), 宽度 vw*/
 }
+body {
+    font-size: 16px;
+}
 
 span {
     color: white
