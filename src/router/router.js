@@ -20,7 +20,7 @@ const shopSafe = r =>require.ensure([],()=>r(require('../elmpage/shop/shopSafe')
 export default [{
     path: '/',
     component: App,
-    redirect: '/elmhome',
+    redirect: '/home',
     children: [{
         path: '/home',
         component: home
