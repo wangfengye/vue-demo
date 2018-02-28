@@ -1,9 +1,7 @@
 export const style = [
     `
 /*
- * Inspired by http://strml.net/
- * 好多公司都在招聘，你是不是也在准备简历呀。
- * 说做就做，我也来写一份简历！
+ * 简历__王枫
  */
 
 
@@ -159,5 +157,5 @@ export const content = `王枫
 链接
 ----
 
-> 如果你喜欢这个效果，Fork [我的项目](https://github.com/wangfengye/wangfengye.github.io)，打造你自己的简历！
+> 如果你喜欢这个效果，Fork [我的项目](https://github.com/wangfengye/vue-demo)，打造你自己的简历！
 `;
