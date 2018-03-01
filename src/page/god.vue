@@ -54,7 +54,7 @@ export default {
         getResult() {
             console.log("onclick");
             let rand = Math.floor(Math.random() * 17) + 1;
-            this.image = "http://play.7724.com/olgames/rhsczlw//images/" + 17 + ".jpg";
+            this.image = "http://play.7724.com/olgames/rhsczlw//images/" + rand + ".jpg";
             this.getRandomColor();
 
             this.isResult = true;
