@@ -3,7 +3,7 @@
         <head-top head-title="神造你时加了什么魔法～" />
     
         <div class="content" v-if="!isResult">
-            <img src="http://url.pcarzh.cn/gameTest/0531shangdi/style/thumb.png" />
+             <div id="title-img" v-html="title"></div>
             <div class="weui-cells weui-cells_form">
                 <div class="weui-cell">
                     <div class="weui-cell__hd">
@@ -19,9 +19,9 @@
             </div>
         </div>
         <div class="result" v-if="isResult">
-            <img :src="image" />
-            <h5>
-                <strong :style="{color:color}">{{name}}</strong>被上帝制造时...</h5>
+            <h5><strong :style="{color:color}">{{name}}</strong>被上帝制造时...</h5>
+            <div id="result-img" v-html="showImg(image)"></div>
+
         </div>
     </div>
 </template>
@@ -35,9 +35,13 @@ export default {
             name: '',
             image: '',
             color: "#ff0000",
+            title: ''
         }
     },
     components: { headTop },
+    mounted(){
+        this.title = this.showImg('http://play.7724.com/olgames/rhsczlw//images/start_bg.jpg')
+    },
     methods: {
         getRandomColor() {
             let color = "#";
@@ -49,12 +53,18 @@ export default {
         },
         getResult() {
             console.log("onclick");
-            let rand = Math.floor(Math.random() * 32) + 1;
-            this.image = "http://url.pcarzh.cn/gameTest/0531shangdi/sucai/" + rand + ".png";
+            let rand = Math.floor(Math.random() * 17) + 1;
+            this.image = "http://play.7724.com/olgames/rhsczlw//images/" + 17 + ".jpg";
             this.getRandomColor();
 
             this.isResult = true;
-        }
+        },
+        
+        showImg(url) {
+		    var frameid = 'frameimg' + Math.random();
+		    window.img = '<img id="img" style="width:100%" src=\'' + url + '?' + Math.random() + '\' /><script>window.onload = function() { parent.document.getElementById(\'' + frameid + '\').height = (document.getElementById(\'img\').height*1.1)+\'px\'; }<' + '/script>';
+		    return '<iframe id="' + frameid + '" src="javascript:parent.img;" frameBorder="0" scrolling="no" width="100%"></iframe>';
+	}
 
     }
 }
@@ -63,6 +73,7 @@ export default {
 <style lang='scss' scoped>
 @import 'src/style/weui';
 @import 'src/style/mixin';
+
 .content {
     padding-top: 2rem;
     img {
@@ -79,7 +90,8 @@ export default {
 
 .result {
     padding-top: 2rem;
-    img {
+    #result-img {
+        padding-top: 3rem;
         padding-left: .2rem;
         width: 100%;
     }
